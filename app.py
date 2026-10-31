@@ -41,10 +41,9 @@ def enviar_alerta_whatsapp_meta(
       "Content-Type": "application/json",
   }
 
-  # Utiliza o template predefinido 'hello_world' aprovado por padrão pela Meta
   payload = {
       "messaging_product": "whatsapp",
-      "to": numero_destino,  # Formato sem o sinal de + (Ex: 5511999998888)
+      "to": numero_destino,
       "type": "template",
       "template": {"name": "hello_world", "language": {"code": "en_US"}},
   }
@@ -255,6 +254,7 @@ elif opcao_menu == "📈 Diagnóstico do Ativo":
       if saude_pct > 70
       else ("#f59e0b" if saude_pct > 40 else "#ef4444")
   )
+  status_texto = "SAUDÁVEL" if saude_pct > 70 else "ATENÇÃO"
 
   with st.container():
     st.markdown('<div class="metric-card">', unsafe_allow_html=True)
@@ -285,8 +285,7 @@ elif opcao_menu == "📈 Diagnóstico do Ativo":
         annotations=[{
             "text": (
                 f"<b>{saude_pct}%</b><br><span"
-                f" style='font-size:14px;color:{cor_saude};'>{'SAUDÁVEL' if"
-                " saude_pct > 70 else 'ATENÇÃO'}</span>"
+                f" style='font-size:14px;color:{cor_saude};'>{status_texto}</span>"
             ),
             "x": 0.5,
             "y": 0.5,
